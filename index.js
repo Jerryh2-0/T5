@@ -103,10 +103,11 @@ let dateChecker = async () => {
     
     let waitForBirthday = async (birthday) => {
         let now = new Date()
-        console.log(new Date(now.getFullYear(), birthday.date.month, birthday.date.day, birthday.date.hour, birthday.date.minute, birthday.date.seconde).getTime() - new Date().getTime())
+        console.log(birthday.date.day === now.getDate() ? new Date(now.getFullYear(), birthday.date.month, birthday.date.day, birthday.date.hour, birthday.date.minute, birthday.date.seconde).getTime() - new Date().getTime() : 86400000)
 
         let promise = new Promise((resolve, reject) => {
             setTimeout(() => {
+                if(new Date(now.getFullYear(), birthday.date.month, birthday.date.day, birthday.date.hour, birthday.date.minute, birthday.date.seconde).getTime() - new Date().getTime()) return resolve('Not a birthday')
                 console.log('sending message')
                 console.log(birthday)
                 guild.channels.cache.get(config.channelID).send(`Joyeux anniversaire <@${birthday.id}> <:tada:798513412869980190> <:partying_face:798513412869980190>`)
